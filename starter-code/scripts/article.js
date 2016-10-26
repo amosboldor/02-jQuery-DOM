@@ -24,16 +24,15 @@ Article.prototype.toHtml = function() {
   3. article title
   4. article body
   5. publication*/
-  $newArticle.find('address > a').text(this.author);
-  $newArticle.find('address > a').attr( 'href', this.authorUrl);
+  $newArticle.find('.byline a').text(this.author);
+  $newArticle.find('.byline a').attr('href', this.authorUrl);
   $newArticle.find('h1').text(this.title);
-  $newArticle.find('.article-body').text(this.body);
+  $newArticle.find('.article-body').html(this.body);
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
   $newArticle.find('time').text('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
 /* TODO: This cloned article is no longer a template, as it now
 has real data attached to it. Remove the class from this new article! */
-  $newArticle.find('.template').addClass('blogPost');
-  $newArticle.find('.template').removeClass('template');
+  $newArticle.removeClass('template');
   return $newArticle;
 };
 
@@ -51,6 +50,6 @@ blogArticles.forEach(function(ele) {
   articles.push(new Article(ele));
 });
 
-articles.forEach(function(article) {
-  $('#articles').append(article.toHtml());
-});
+    articles.forEach(function(article) {
+      $('#articles').append(article.toHtml());
+    });
